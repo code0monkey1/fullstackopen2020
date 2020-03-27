@@ -47,7 +47,7 @@ const App = () => {
     }
   ]
   let coursesInfo =courses.map( (course)=>
-  <Course course={course}/>
+  <Course id={course.id} course={course}/>
     )
 
   return (
