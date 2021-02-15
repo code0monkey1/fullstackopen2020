@@ -1,0 +1,46 @@
+{
+  "blogs": [
+    {
+      "title": "Title1",
+      "author": "Author1",
+      "like": 7,
+      "userId": 1,
+      "id": 1,
+      "comments": [
+        "first comment",
+        "second comment",
+        "third comment",
+        "fourth comment"
+      ]
+    },
+    {
+      "title": "Title2",
+      "author": "Author2",
+      "like": 5,
+      "userId": 2,
+      "id": 2,
+      "comments": [
+        "First comment",
+        "For sure second comment"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "user1",
+      "password": "password1",
+      "blogs": [
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "password": "password2",
+      "blogs": [
+        2
+      ]
+    }
+  ]
+}
