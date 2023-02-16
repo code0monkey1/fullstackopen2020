@@ -8,7 +8,8 @@
     "tsc": "tsc",
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint --ext .ts .",
-    "start": "node build/index.js"
+    "start": "node build/index.js",
+    "git":"git add . && git commit -m 'things' && git push  "
   },
   "keywords": [],
   "author": "",

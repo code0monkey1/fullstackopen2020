@@ -8,14 +8,13 @@ const getNonSensitivePatientsData=():Array<NonSensitivePatientData> => patients
 .map( ({id,name,dateOfBirth,gender,occupation}) => ( { id, name,dateOfBirth,gender,occupation}));
 
 
-const addPatient=(patient:NewPatientEntry):Patient[] =>{
+const addPatient=(patient:NewPatientEntry):Patient =>{
       
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
-    const id:string = uuid();
-    
-    patients.push({...patient,id});
 
-    return patients;
+   const newPatient:Patient={...patient,id:uuid()};
+
+  return newPatient;
      
 };
 export default {
