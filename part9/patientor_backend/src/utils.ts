@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
-import { Gender, NewPatientEntry } from "./types";
+import { BaseEntry, Diagnosis, Gender, HealthCheckEntry, HospitalEntry, NewEntry, NewPatientEntry, OccupationalHealthcareEntry } from "./types";
+
 
 type Fields ={
   ssn?: unknown,
@@ -68,7 +69,7 @@ const parseOccupation =(occupation:unknown):string=>{
   
       return occupation;
 };
-const toNewPatientEntry=(object:Fields):NewPatientEntry=>{
+export const toNewPatientEntry=(object:Fields):NewPatientEntry=>{
        
   const patientEntry:NewPatientEntry = {
 
@@ -77,7 +78,6 @@ const toNewPatientEntry=(object:Fields):NewPatientEntry=>{
       dateOfBirth:parseDate(object.dateOfBirth),
       gender:parseGender(object.gender),
       occupation:parseOccupation(object.occupation),
-      
   };
    
 
@@ -85,4 +85,53 @@ const toNewPatientEntry=(object:Fields):NewPatientEntry=>{
 }; 
 
 
-export default toNewPatientEntry;
+const parseDiagnosisCodes = (object: unknown): Array<Diagnosis['code']> =>  {
+  if (!object || typeof object !== 'object' || !('diagnosisCodes' in object)) {
+    // we will just trust the data to be in correct form
+    return [] as Array<Diagnosis['code']>;
+  }
+
+  return object.diagnosisCodes as Array<Diagnosis['code']>;
+};
+
+
+export const toNewEntry=(entry:NewEntry):NewEntry=>{
+   
+  const newEntry :Omit<BaseEntry,'id'> ={
+
+    diagnosisCodes: parseDiagnosisCodes(entry),
+    description:entry.description,
+    date:parseDate(entry.date),
+    specialist:entry.specialist,
+   
+  };
+
+  switch(entry.type){
+
+    case 'HealthCheck':
+
+     (<HealthCheckEntry>newEntry).type=entry.type;
+     (<HealthCheckEntry>newEntry).healthCheckRating=entry.healthCheckRating;
+
+    break;
+
+    case 'Hospital':
+     
+     (<HospitalEntry>newEntry).type=entry.type;
+     (<HospitalEntry>newEntry).discharge=entry.discharge;
+
+    break;
+
+    case 'OccupationalHealthcare':
+      (<OccupationalHealthcareEntry>newEntry).type=entry.type;
+      (<OccupationalHealthcareEntry>newEntry).sickLeave=entry?.sickLeave;
+      (<OccupationalHealthcareEntry>newEntry).employerName =entry.employerName;
+
+    break;
+  }
+
+
+    return newEntry  as NewEntry ;
+};
+
+
