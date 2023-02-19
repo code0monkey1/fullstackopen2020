@@ -21,6 +21,8 @@ router.get('/:id', (req, res) =>{
 
 router.post("/:id/entries", (req, res)=>{  
    console.log(`post("api/patients/:id/entries")`);
+
+   console.log("data received",JSON.stringify(req.body,null,2));
   try{          
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
